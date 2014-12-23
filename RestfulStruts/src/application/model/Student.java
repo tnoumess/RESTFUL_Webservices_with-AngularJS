@@ -11,25 +11,25 @@ public class Student {
 	private int studentId;
 	private String name;
 	private String major;
-	private String status;
+	private String country;
 	
-	public Student(int studentId, String name, String major, String status) {
+	public Student(int studentId, String name, String major, String country) {
 		super();
 		this.studentId = studentId;
 		this.name = name;
 		this.major = major;
-		this.status = status;
+		this.country = country;
 	}
 	public Student(){
 		this.studentId=0;
-		this.status="";
+		this.country="";
 		this.major="";
 		this.name="";
 	}
 	@Override
 	public String toString() {
 		return "Student [studentId=" + studentId + ", name=" + name
-				+ ", major=" + major + ", status=" + status + "]";
+				+ ", major=" + major + ", country=" + country + "]";
 	}
 	
 	public int getStudentId() {
@@ -50,11 +50,11 @@ public class Student {
 	public void setMajor(String major) {
 		this.major = major;
 	}
-	public String getStatus() {
-		return status;
+	public String getcountry() {
+		return country;
 	}
-	public void setStatus(String status) {
-		this.status = status;
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
 }

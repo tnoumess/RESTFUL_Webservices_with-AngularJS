@@ -6,7 +6,7 @@
 <title>Student Management System</title>
 </head> 
 <body>
-<div ng-controller="SmcController"  > <span ng-click='addstudentform()'> <a ng-href="#"  >Add Student</a></span>||<span ng-click='removestudentform()'><a href="#" >Remove Student</a></span>||<span ng-click='updatestudentform()'><a href="#" >Update Student</a></span>||<span ng-click='liststudents'><a href="#" >List Students</a></span>
+<div ng-controller="SmcController" > <span ng-click='addstudentform()'> <a ng-href="#"  >Add Student</a></span>||<span ng-click='removestudentform()'><a href="#" >Remove Student</a></span>||<span ng-click='updatestudentform()'><a href="#" >Update Student</a></span>||<span ng-click='liststudents'><a href="#" >List Students</a></span>
 
 <div ng-controller="formController" ng-show='formState.show'>
 <form  ng-submit="sendform()" >

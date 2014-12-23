@@ -108,7 +108,7 @@ app.controller('TablecolorController', function ($scope) {
 app.controller('PictureController', function ($scope) {
 	$scope.showit=function(){
 		$scope.yourpicture='me.jpg';
-		$scope.picState = { show: !$scope.picState };
+		$scope.picState = { show: true};
 			
 	}
 	$scope.hideit=function(){
@@ -150,43 +150,52 @@ app.controller('CartController',function($scope){
 });
 
 app.controller('SmcController',function($scope){
-	
-	
+	//formremoveState.show=false;
+	//alert("5551");	
 	$scope.addstudentform=function(){
-		
+		console.log('just switch');
+		$scope.formremoveState = { show: false };
+		$scope.formupdateState = { show: false};
+		$scope.formlistState = { show: false };
 		$scope.formState = { show: true };
 			
 	}
     $scope.removestudentform=function(){
-		
-		$scope.formState = { show: false };
+    	
+    	$scope.formState = { show: false };		
+		$scope.formupdateState = { show:false };
+		$scope.formlistState = { show: false };
+		$scope.formremoveState = { show: true };
 			
 	}
     $scope.updatestudentform=function(){
-	
-	    $scope.formState = { show: true };
+    	
+    	$scope.formState = { show: false };
+		$scope.formremoveState = { show: false };
+		$scope.formlistState = { show: false };
+		$scope.formupdateState = { show: true };
 		
     }
     $scope.liststudents=function(){
 		
-		$scope.formState = { show: false };
+    	$scope.formState = { show: false };
+		$scope.formremoveState = { show: false };
+		$scope.formupdateState = { show: false };
+		$scope.formlistState = { show: true };
 			
 	}
-
-$scope.addstudentform=function(){
-	
-	$scope.formState = { show: true };
-		
-}
-	
-	
-	
-	/*$controller('formController',function($scope){
-		 $scope.sendform = function() {
-			 
-		 }
-		
-	});*/
-	
-	
+  
+    
 });
+
+app.controller('formsController', function ($scope,$http) {
+	console.log('just added1');
+      $scope.sendform=function(){
+		console.log('just added2');
+		alert("inform");
+	    	
+				
+		}
+	  
+	});
+

@@ -1,7 +1,7 @@
 var app = angular.module('myApp', []);
 app.controller('GetController', function ($scope, $http) {
 	  
-    var url="http://localhost:8080/RestfulStruts/rest/v1/status";
+    var url="http://localhost:8080/RestfulStruts/rest";
        
    
        $http.get(url).success(function(response){alert("in");
@@ -17,7 +17,7 @@ app.factory('FetchdataController',function(){
 	
 	var studentss=function ($scope, $http) {
 	  
-    var url="http://localhost:8080/RestfulStruts/rest/v1/status";
+    var url="http://localhost:8080/RestfulStruts/rest";
        
    
        $http.get(url).success(function(response){alert(response);
@@ -39,7 +39,7 @@ app.controller('greetingController', function ($scope) {
 app.controller('formController', function ($scope) {
 	 $scope.form={};
 	
-	 $scope.display=function(){alert($scope.form.id)}
+	 $scope.display=function(){alert($scope.form.id);} 
 	 $scope.funding = {  };
 	 $scope.funding.startingEstimate;
 	 
@@ -190,12 +190,42 @@ app.controller('SmcController',function($scope){
 
 app.controller('formsController', function ($scope,$http) {
 	console.log('just added1');
-      $scope.sendform=function(){
-		console.log('just added2');
-		alert("inform");
-	    	
+	/*$scope.data = {
+	        studentId: $scope.student.studentId,
+	        name: $scope.student.name,
+	        major: $scope.student.major,
+	        country: $scope.student.country
+	        */
+	$scope.sendform = function() {
+		console.log($scope.student);
+		var url="http://localhost:8080/RestfulStruts/rest/students";
+		var config={
+				headers:{'Content-Type': 'application/x-www-form-urlencoded'}				
+		};
+		var data={studentId: $scope.student.Id, name: $scope.student.Name, major: $scope.student.Major, country: $scope.student.Country }
+		$http.post(url,data,config).success(function(){
+		    console.log('data sent');
+		}).error(function(data, status, headers, config) {
+	       	 alert("error");
+	       }
+		);	
+		/*
+		$http({
+			method: 'POST',
+		    url: "http://localhost:8080/RestfulStruts/rest/v1/status",
+		    headers: {'Content-Type': 'application/json'},
+		   // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+		    //data: {Id: $scope.student.Id, name: $scope.student.Name, major: $scope.student.Major, country: $scope.student.Country}
+		   data:{ 'studentId':"g552147",'name':"thierry",'major':"swe",'country':"Cameroun"}
+		  //  data:formdata
+		}).success(function(){
+		    console.log('data sent');
+		}).error(function(data, status, headers, config) {
+	       	 alert("error");
+	       }
+		);	  */  
 				
-		}
+		 
 	  
-	});
+	};});
 

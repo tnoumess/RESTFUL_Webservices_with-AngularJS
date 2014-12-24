@@ -8,23 +8,29 @@ package application.model;
  *
  */
 public class Student {
-	private int studentId;
+	private String studentId;
 	private String name;
 	private String major;
 	private String country;
 	
-	public Student(int studentId, String name, String major, String country) {
-		super();
+	public Student(String studentId, String name, String major, String country) {
+		super() ;
 		this.studentId = studentId;
 		this.name = name;
 		this.major = major;
 		this.country = country;
 	}
 	public Student(){
-		this.studentId=0;
+		this.studentId="";
 		this.country="";
 		this.major="";
 		this.name="";
+	}
+	public Student(Student s){
+		this.studentId=s.studentId;
+		this.country=s.country;
+		this.major=s.major;
+		this.name=s.name;
 	}
 	@Override
 	public String toString() {
@@ -32,10 +38,10 @@ public class Student {
 				+ ", major=" + major + ", country=" + country + "]";
 	}
 	
-	public int getStudentId() {
+	public String getStudentId() {
 		return studentId;
 	}
-	public void setStudentId(int studentId) {
+	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
 	public String getName() {

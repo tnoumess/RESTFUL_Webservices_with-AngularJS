@@ -63,10 +63,10 @@
 
 
 
-<div ng-controller="SmcController"  > <span ng-click='addstudentform()'> <a ng-href="#"  >Add Student</a></span>||<span ng-click='removestudentform()'><a href="#" >Remove Student</a></span>||<span ng-click='updatestudentform()'><a href="#" >Update Student</a></span>||<span ng-click='liststudents()'><a href="#" >List Students</a></span>
+<div ng-controller="SmcController"  > <span ng-click='addstudentform()'> <a ng-href="#" >Add Student</a></span>||<span ng-click='removestudentform()'><a href="#" >Remove Student</a></span>||<span ng-click='updatestudentform()'><a href="#" >Update Student</a></span>||<span ng-click='liststudents()'><a href="#" >List Students</a></span>
 
 <div  ng-show='formState.show' ng-controller="formsController">
-<form  ng-submit="sendform()"   name="studentform">
+<form   name="studentform" ng-submit="sendform()">
 <fieldset class="fieldset_spec"><legend><strong>Student Information</strong></legend>
 <div class="div_spec" ng-class="getCssClasses(studentform.studentId)">
 StudentId:<input name="studentId" type="text" title="Student Id" placeholder="G00760357"  ng-model="student.Id" ng-pattern="/^[G]{1}[0-9]{6}$/"  required>

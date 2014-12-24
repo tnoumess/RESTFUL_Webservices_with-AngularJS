@@ -8,7 +8,7 @@
       <meta attribute="class-description">
          This class contains the student detail. 
       </meta>
-      <id name="studentId" column="studentId" type="integer">
+      <id name="studentId" column="studentId" type="string">
         </id>      
       <property name="name" column="name" type="string"/>
       <property name="major" column="major" type="string"/>  

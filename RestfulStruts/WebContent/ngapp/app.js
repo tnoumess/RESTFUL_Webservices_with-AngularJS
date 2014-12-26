@@ -6,6 +6,7 @@ app.controller('GetController', function ($scope, $http) {
    
        $http.get(url).success(function(response){alert("in");
        $scope.students=response;	
+       console.log("in controller:"+$scope.students);
        	
        }).error(function(data, status, headers, config) {
        	 alert("error");
@@ -34,6 +35,10 @@ app.factory('FetchdataController',function(){
 
 app.controller('greetingController', function ($scope) {
   $scope.greeting = { text: 'Hello' };
+});
+app.controller('SmSController',function($scope,$http){$scope.message = { text: 'Hello' };
+
+
 });
 
 app.controller('formController', function ($scope) {
@@ -149,7 +154,7 @@ app.controller('CartController',function($scope){
 	
 });
 
-app.controller('SmcController',function($scope){
+app.controller('SmcController',function($scope,$http){
 	//formremoveState.show=false;
 	//alert("5551");	
 	$scope.addstudentform=function(){
@@ -176,8 +181,23 @@ app.controller('SmcController',function($scope){
 		$scope.formupdateState = { show: true };
 		
     }
-    $scope.liststudents=function(){
-		
+    $scope.liststudents=function(){//window.location.reload();
+    	//fetch the most recent data
+    	var url="/RestfulStruts/rest";
+    	console.log('before init'+$scope.students);
+    	$scope.students=$scope.initial;// clear the object first
+    	console.log('after init'+$scope.students);
+        $http.get(url).success(function(response, status, headers){
+        alert("in");console.log(status);
+        $scope.students=response;	
+        console.log(headers);
+        
+        }).error(function(data, status, headers, config) {
+        	console.log(status);
+        	console.log(data);
+            console.log(headers);
+        });
+        //hide other views
     	$scope.formState = { show: false };
 		$scope.formremoveState = { show: false };
 		$scope.formupdateState = { show: false };
@@ -197,6 +217,7 @@ app.controller('formsController', function ($scope,$http) {
 	        country: $scope.student.country
 	        */
 	$scope.sendform = function() {
+		$scope.message={ text: null};
 		console.log($scope.student);
 		var url="/RestfulStruts/rest/students";
 		var config={
@@ -206,7 +227,8 @@ app.controller('formsController', function ($scope,$http) {
 		var data='studentId='+$scope.student.Id+'&name='+$scope.student.Name+'&major= '+$scope.student.Major+'&country= '+$scope.student.Country;
 		$http.post(url,data,config).success(function(response){
 		    console.log('data sent');
-		    $scope.students=response;
+		    $scope.students=null;
+		    $scope.message={ text: 'the student was saved'};
 		}).error(function(data, status, headers, config) {
 	       	 alert("error");
 	       }

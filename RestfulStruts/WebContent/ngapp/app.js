@@ -1,7 +1,7 @@
 var app = angular.module('myApp', []);
 app.controller('GetController', function ($scope, $http) {
 	  
-    var url="http://localhost:8080/RestfulStruts/rest";
+    var url="/RestfulStruts/rest";
        
    
        $http.get(url).success(function(response){alert("in");
@@ -17,7 +17,7 @@ app.factory('FetchdataController',function(){
 	
 	var studentss=function ($scope, $http) {
 	  
-    var url="http://localhost:8080/RestfulStruts/rest";
+    var url="/RestfulStruts/rest";
        
    
        $http.get(url).success(function(response){alert(response);
@@ -198,13 +198,15 @@ app.controller('formsController', function ($scope,$http) {
 	        */
 	$scope.sendform = function() {
 		console.log($scope.student);
-		var url="http://localhost:8080/RestfulStruts/rest/students";
+		var url="/RestfulStruts/rest/students";
 		var config={
 				headers:{'Content-Type': 'application/x-www-form-urlencoded'}				
 		};
-		var data={studentId: $scope.student.Id, name: $scope.student.Name, major: $scope.student.Major, country: $scope.student.Country }
-		$http.post(url,data,config).success(function(){
+		
+		var data='studentId='+$scope.student.Id+'&name='+$scope.student.Name+'&major= '+$scope.student.Major+'&country= '+$scope.student.Country;
+		$http.post(url,data,config).success(function(response){
 		    console.log('data sent');
+		    $scope.students=response;
 		}).error(function(data, status, headers, config) {
 	       	 alert("error");
 	       }

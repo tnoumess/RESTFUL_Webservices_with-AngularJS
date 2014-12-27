@@ -36,7 +36,7 @@ public class ConflictException extends WebApplicationException{
     {
         super(Response.status(Status.CONFLICT).location(location).type(MediaType.APPLICATION_JSON).entity(entity).build());
     }
-    public static Response toResponse(String errors){
+    public static Response toResponse(Object errors){
     	return Response.status(Status.CONFLICT).type(MediaType.APPLICATION_JSON).entity(Json_Parser.Object_to_Json(errors)).build();		
 }
 

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package application.rest;
 
 
@@ -36,57 +33,31 @@ import com.google.gson.Gson;
 
 
 /**
- * @author root
- *
+ * @author Thierry Edson Noumessi
+ * 
+ * This is a Restful Web services that allows clients to 
+ * register, update, delete or extract students information
+ * 
  */
+
 @Path("/")
 public class RestService {
-	public static String users="[{\"studentId\": \"G00760357\",\"name\": \"Noumessi\"},{\"studentId\": \"G00760358\",\"name\": \"Tawo\" }]"; 
 	public static String ListStudents=Json_Parser.Object_to_Json(SetupDB.List_students());
-	public static String user="[{studentId: \"G00760357\",name: \"Noumessi\"},{studentId: \"G00760358\",name: \"Tawo\" }]"; 
+	/**
+	 * @param information about the request
+	 * @return list of students registered
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Object returntitle( @Context Request req){
-		/*CacheControl cc = new CacheControl();
-        //Set max age to one day
-        cc.setMaxAge(86400);
-        Response.ResponseBuilder rb = null;
-        
-        EntityTag etag = new EntityTag(users.hashCode()+"");
-        
-        //Verify if it matched with etag available in http request
-        rb = req.evaluatePreconditions(etag);
-         
-        //If ETag matches the rb will be non-null;
-        //Use the rb to return the response without any further processing
-        if (rb == null)
-        {
-            return rb.cacheControl(cc).tag(etag).build();
-        }
-         
-        //If rb is null then either it is first time request; or resource is modified
-        //Get the updated representation and return with Etag attached to it
-        rb = Response.ok(users).cacheControl(cc).tag(etag);*/
-		System.out.println("inside");
-		System.out.println(req.toString());
-	
-		//return rb.build();
-	/*	if(1!=1) {
-			throw new WebApplicationException(Response.status(
-					Response.Status.UNAUTHORIZED).type(
-					MediaType.APPLICATION_JSON).entity(
-					"Book, " +"edson"+ ", is not found").build());
-		}*/
-		System.out.println("before:"+ListStudents);
-		
-		//if(ListStudents==null)
-		//ListStudents =Json_Parser.Object_to_Json(SetupDB.List_students());
-		//System.out.println("after"+ListStudents);
-	return Json_Parser.Object_to_Json(SetupDB.List_students());//Response.status(Status.CONFLICT).type(MediaType.APPLICATION_JSON).entity("student id").build();	
-	//ListStudents;
-	}
+	public Object list( @Context Request req){
+		System.out.println("before:"+ListStudents);		
+		return ListStudents;
+	}	
 	
 	
+	/**
+	 * @return the version of the Web Services
+	 */
 	@Path("/version")
 	@GET
 	@Produces(MediaType.TEXT_HTML)
@@ -95,12 +66,37 @@ public class RestService {
 		return "584215";
 	}
 	
+	
+	
+	/**
+	 * This method is used to save student information in the database.
+	 * 
+	 * @param studentId
+	 * @param name
+	 * @param major
+	 * @param country
+	 * @param uriInfo
+	 * @return  It returns 3 possible solutions
+	 * 
+	 * Processes Form data from HTML
+	 * Returns JSON data
+	 * 
+	 *         Code  200 if the operation is successful
+	 *         Code  409 if the Student Id exists already
+	 *         Code  400 if the data sent to the server are invalid 
+	 */
 	@Path("students")
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Object saveStudent_Appform(@FormParam("studentId") String studentId, @FormParam("name") String name, @FormParam("major")String major,@FormParam("country")String country,@Context UriInfo uriInfo){
 		Student s=new Student(studentId, name, major, country);
+		/*
+		 *Server side validation. If an attacker circumvents the client side validation,
+		 *the server will detect it and reject the data by throwing Code400 
+		 * 
+		 * This same Regex pattern utilized on the client side.
+		 */
 		 String expr_id="^([G]{1})([0-9]{6})$";
 		 String expr_name="^([a-zA-Z]{2,20})$";
 		 String expr_major="^([a-zA-Z]{3})$";
@@ -138,16 +134,23 @@ public class RestService {
 		return Json_Parser.Object_to_Json(SetupDB.Retrieve(studentId));
 		
 		}else{
-			// throw new ConflictException(uriInfo.getBaseUriBuilder().path("/users/{username}").build(studentId));
 			errors.add("This Student Id is already been used! pick a different one");
-		return	Response.status(Status.CONFLICT).type(MediaType.APPLICATION_JSON).entity(Json_Parser.Object_to_Json(errors)).build();	
-			//return ConflictException.toResponse("The Student Id");
+		//return	Response.status(Status.CONFLICT).type(MediaType.APPLICATION_JSON).entity(Json_Parser.Object_to_Json(errors)).build();	
+			return ConflictException.toResponse(errors);
 		}
 		}
 		System.out.println("cannot save");
 		//throw new ConflictException(uriInfo.getBaseUriBuilder().path("/student/{studentId}").build(studentId));
-		return Response.status(Status.BAD_REQUEST).type(MediaType.APPLICATION_JSON).entity(Json_Parser.Object_to_Json(errors)).build();
+		return BadRequestException.toResponse(errors);
 	}
+	/**
+	 * @param studentId
+	 * @param name
+	 * @param major
+	 * @param country
+	 * 
+	 * Same as saveStudent_Appform but consumes JSON data
+	 */
 	@Path("students")
 	@POST	
 	@Consumes(MediaType.APPLICATION_JSON)

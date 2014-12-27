@@ -31,7 +31,7 @@ public class BadRequestException extends WebApplicationException {
         return errors;
     }
      public static Response toResponse(List<String> errors){
-        	return Response.status(Status.BAD_REQUEST).entity(Json_Parser.Object_to_Json(errors)).build();		
+        	return Response.status(Status.BAD_REQUEST).type(MediaType.APPLICATION_JSON).entity(Json_Parser.Object_to_Json(errors)).build();		
     }
 
 }

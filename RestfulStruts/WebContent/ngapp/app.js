@@ -155,9 +155,8 @@ app.controller('CartController',function($scope){
 });
 
 app.controller('SmcController',function($scope,$http){
-	//formremoveState.show=false;
-	//alert("5551");	
-	$scope.addstudentform=function(){
+		
+	    $scope.addstudentform=function(){
 		console.log('just switch');
 		$scope.formremoveState = { show: false };
 		$scope.formupdateState = { show: false};
@@ -210,14 +209,9 @@ app.controller('SmcController',function($scope,$http){
 
 app.controller('formsController', function ($scope,$http) {
 	console.log('just added1');
-	/*$scope.data = {
-	        studentId: $scope.student.studentId,
-	        name: $scope.student.name,
-	        major: $scope.student.major,
-	        country: $scope.student.country
-	        */
-	$scope.sendform = function() {
-		$scope.message={ text: null};
+		$scope.sendform = function() {
+		$scope.message_success={ text: null};
+		$scope.message_error={ text: null};
 		console.log($scope.student);
 		var url="/RestfulStruts/rest/students";
 		var config={
@@ -229,28 +223,16 @@ app.controller('formsController', function ($scope,$http) {
 		    console.log('data sent');
 		    console.log(response);
 		    $scope.students=null;
-		    $scope.message={ text: 'the student was saved'};
+		    $scope.message_success={ text: 'The student was saved'};
 		}).error(function(data, status, headers, config) {
-	       	 alert("error");
+			console.log("data:"+data);
+			console.log("status:"+status);
+			console.log("headers"+headers);
+			console.log("config"+config);
+			 $scope.message_error={ text: data};
 	       }
 		);	
-		/*
-		$http({
-			method: 'POST',
-		    url: "http://localhost:8080/RestfulStruts/rest/v1/status",
-		    headers: {'Content-Type': 'application/json'},
-		   // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-		    //data: {Id: $scope.student.Id, name: $scope.student.Name, major: $scope.student.Major, country: $scope.student.Country}
-		   data:{ 'studentId':"g552147",'name':"thierry",'major':"swe",'country':"Cameroun"}
-		  //  data:formdata
-		}).success(function(){
-		    console.log('data sent');
-		}).error(function(data, status, headers, config) {
-	       	 alert("error");
-	       }
-		);	  */  
-				
-		 
+				 
 	  
 	};});
 

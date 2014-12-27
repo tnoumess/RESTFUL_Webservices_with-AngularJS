@@ -16,10 +16,15 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 /**
- * @author root
+ * @author Thierry Edson Noumessi
+ * 
+ * Persistence Object that provides access to the database.
  *
  */
 public class SetupDB {
+	/**
+	 * Static element that initializes the database before use.
+	 */
 	private static final SessionFactory sessionfactory;
 	 static {
 	        try {System.out.println("before!!!");
@@ -32,7 +37,12 @@ public class SetupDB {
 	            throw new ExceptionInInitializerError(ex);
 	        }
 	    }
-	 public static  boolean SaveForm(Student s){
+	 /**
+	 * @param student
+	 * @return true if the student has been registered
+	 *         false if and error has occurred
+	 */
+	public static  boolean SaveForm(Student s){
 		 try {
 			 
 			System.out.println("inserting info");	
@@ -52,7 +62,12 @@ public class SetupDB {
 		 
 		 		 
 	 }
-	 public static boolean IdInuse(final String Id) {
+	 /**
+	 * @param Id
+	 * @return true if the student with id= Id is in the database
+	 *         false otherwise
+	 */
+	public static boolean IdInuse(final String Id) {
 			
 			Session session=sessionfactory.openSession();
 			Transaction transaction=session.beginTransaction();
@@ -72,7 +87,11 @@ public class SetupDB {
 			
 			return false;
 		}
-	 public static Student Retrieve(final String sID) {
+	 /**
+	 * @param sID student Id
+	 * @return Student information
+	 */
+	public static Student Retrieve(final String sID) {
 			
 			Session session=sessionfactory.openSession();
 			Transaction transaction=session.beginTransaction();
@@ -95,9 +114,12 @@ public class SetupDB {
 			return null;
 		}
 	 
-	 public static List<Student> List_students(){
-			
-			
+	 /**
+	 * @return the list of all the students
+	 * in the database
+	 */
+	public static List<Student> List_students(){
+					
 			Session session=sessionfactory.openSession();
 			Transaction transaction=session.beginTransaction();
 			Query query = session.createQuery("from Student");	    

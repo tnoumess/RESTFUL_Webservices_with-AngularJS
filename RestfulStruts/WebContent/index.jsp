@@ -59,7 +59,7 @@ ng-class='{selected: $index==selectedRow}'>
 <div ng-show='formState.show' ng-controller="formsController">
 <form name="studentform" ng-submit="sendform()">
 <fieldset class="fieldset_spec"><legend><strong>Student Information</strong></legend>
-<div class="success"> {{message.text}}</div>
+<div class="success"> {{message_success.text}}</div><div class="error"> {{message_error.text}}</div>
 <div class="div_spec" ng-class="getCssClasses(studentform.studentId)">
 StudentId:<input name="studentId" type="text" title="Student Id" placeholder="G00760357" ng-model="student.Id" ng-pattern="/^[G]{1}[0-9]{6}$/" required>
 <span ng-show="studentform.studentId.$dirty && studentform.studentId.$error.required" class="error" >This field is required</span>

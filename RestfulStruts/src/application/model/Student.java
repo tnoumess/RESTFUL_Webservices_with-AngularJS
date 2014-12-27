@@ -4,7 +4,8 @@
 package application.model;
 
 /**
- * @author root
+ * @author Thierry Edson Noumessi
+ * This class is the persistence entity that defines student information.
  *
  */
 public class Student {
@@ -73,33 +74,65 @@ public class Student {
 		this.major=s.major;
 		this.name=s.name;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Student [studentId=" + studentId + ", name=" + name
 				+ ", major=" + major + ", country=" + country + "]";
 	}
 	
+	/**
+	 * Getter
+	 * @return student Id
+	 */
 	public String getStudentId() {
 		return studentId;
 	}
+	/**
+	 * Setter
+	 * @param studentId
+	 */
 	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
+	/**Getter
+	 * @return student Name
+	 */
 	public String getName() {
 		return name;
 	}
+	/**  
+	 * Setter
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+	/** Getter
+	 * @return major
+	 */
 	public String getMajor() {
 		return major;
 	}
+	/**
+	 * Setter
+	 * @param major
+	 */
 	public void setMajor(String major) {
 		this.major = major;
 	}
+	/**
+	 * Getter
+	 * @return country
+	 */
 	public String getcountry() {
 		return country;
 	}
+	/** Setter
+	 * @param country
+	 */
 	public void setCountry(String country) {
 		this.country = country;
 	}

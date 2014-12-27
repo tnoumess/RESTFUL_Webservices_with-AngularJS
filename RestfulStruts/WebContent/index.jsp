@@ -99,7 +99,7 @@ update
 </div>
 <div ng-show='formlistState.show'>
 List of Students<br>
-<div ng-controller="GetController">
+<div >
 <ul>
 <li ng-repeat="x in students">{{$index + 1}}.
 StudentId:{{ x.studentId }}

@@ -227,6 +227,7 @@ app.controller('formsController', function ($scope,$http) {
 		var data='studentId='+$scope.student.Id+'&name='+$scope.student.Name+'&major= '+$scope.student.Major+'&country= '+$scope.student.Country;
 		$http.post(url,data,config).success(function(response){
 		    console.log('data sent');
+		    console.log(response);
 		    $scope.students=null;
 		    $scope.message={ text: 'the student was saved'};
 		}).error(function(data, status, headers, config) {

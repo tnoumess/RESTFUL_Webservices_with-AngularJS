@@ -46,7 +46,7 @@ public class RestService {
 	public static String user="[{studentId: \"G00760357\",name: \"Noumessi\"},{studentId: \"G00760358\",name: \"Tawo\" }]"; 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String returntitle( @Context Request req){
+	public Object returntitle( @Context Request req){
 		/*CacheControl cc = new CacheControl();
         //Set max age to one day
         cc.setMaxAge(86400);
@@ -82,7 +82,8 @@ public class RestService {
 		//if(ListStudents==null)
 		//ListStudents =Json_Parser.Object_to_Json(SetupDB.List_students());
 		//System.out.println("after"+ListStudents);
-	return ListStudents;
+	return Json_Parser.Object_to_Json(SetupDB.List_students());//Response.status(Status.CONFLICT).type(MediaType.APPLICATION_JSON).entity("student id").build();	
+	//ListStudents;
 	}
 	
 	
@@ -137,14 +138,15 @@ public class RestService {
 		return Json_Parser.Object_to_Json(SetupDB.Retrieve(studentId));
 		
 		}else{
-			 throw new ConflictException(uriInfo.getBaseUriBuilder().path("/users/{username}").build(studentId));
-			 
+			// throw new ConflictException(uriInfo.getBaseUriBuilder().path("/users/{username}").build(studentId));
+			errors.add("This Student Id is already been used! pick a different one");
+		return	Response.status(Status.CONFLICT).type(MediaType.APPLICATION_JSON).entity(Json_Parser.Object_to_Json(errors)).build();	
 			//return ConflictException.toResponse("The Student Id");
 		}
 		}
 		System.out.println("cannot save");
 		//throw new ConflictException(uriInfo.getBaseUriBuilder().path("/student/{studentId}").build(studentId));
-		return BadRequestException.toResponse(errors);
+		return Response.status(Status.BAD_REQUEST).type(MediaType.APPLICATION_JSON).entity(Json_Parser.Object_to_Json(errors)).build();
 	}
 	@Path("students")
 	@POST	

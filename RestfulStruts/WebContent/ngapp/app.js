@@ -162,6 +162,7 @@ app.controller('SmcController',function($scope,$http){
 		$scope.formupdateState = { show: false};
 		$scope.formlistState = { show: false };
 		$scope.formState = { show: true };
+		$scope.formupdatedisplayState={show:false};
 			
 	}
     $scope.removestudentform=function(){
@@ -170,14 +171,38 @@ app.controller('SmcController',function($scope,$http){
 		$scope.formupdateState = { show:false };
 		$scope.formlistState = { show: false };
 		$scope.formremoveState = { show: true };
+		$scope.formupdatedisplayState={show:false};
 			
 	}
     $scope.updatestudentform=function(){
+    	var url="/RestfulStruts/rest";
+    	console.log('inside student update');
+    	$scope.students=$scope.initial;// clear the object first
+    
+        $http.get(url).success(function(response, status, headers){
+        
+        $scope.students=response;	
+        console.log(headers);
+        
+        }).error(function(data, status, headers, config) {
+        	console.log(status);
+        	console.log(data);
+            console.log(headers);
+        });
+        $scope.updateformdisplay=function(){
+        	console.log('in updateformdisplay');
+        	$scope.formState = { show: false };		
+    		$scope.formupdateState = { show:false };
+    		$scope.formlistState = { show: false };
+    		$scope.formremoveState = { show: false };
+    		$scope.formupdatedisplayState={show:true};
+    	}
     	
     	$scope.formState = { show: false };
 		$scope.formremoveState = { show: false };
 		$scope.formlistState = { show: false };
 		$scope.formupdateState = { show: true };
+		$scope.formupdatedisplayState={show:true};
 		
     }
     $scope.liststudents=function(){//window.location.reload();
@@ -187,7 +212,7 @@ app.controller('SmcController',function($scope,$http){
     	$scope.students=$scope.initial;// clear the object first
     	console.log('after init'+$scope.students);
         $http.get(url).success(function(response, status, headers){
-        alert("in");console.log(status);
+        console.log(status);
         $scope.students=response;	
         console.log(headers);
         
@@ -201,10 +226,44 @@ app.controller('SmcController',function($scope,$http){
 		$scope.formremoveState = { show: false };
 		$scope.formupdateState = { show: false };
 		$scope.formlistState = { show: true };
+		$scope.formupdatedisplayState={show:false};
 			
 	}
   
     
+});
+
+app.controller('updateController', function ($scope,$http) {
+	console.log('just added1');
+	$scope.sendupdateform=function(){
+		$scope.message_success_update={ text: null};
+		$scope.message_error_update={ text: null};
+		console.log($scope.Student);
+		var url="/RestfulStruts/rest/students";
+		var config={
+				headers:{'Content-Type': 'application/x-www-form-urlencoded'}				
+		};
+		
+		var data='studentId='+$scope.Student.Id+'&name='+$scope.Student.Name+'&major= '+$scope.Student.Major+'&country= '+$scope.Student.Country;
+		$http.put(url,data,config).success(function(response){
+		    console.log('data sent');
+		    console.log(response);
+		    $scope.students=null;
+		    $scope.message_success_update={ text: 'The student was successfully updated'};
+		}).error(function(data, status, headers, config) {
+			console.log("data:"+data);
+			console.log("status:"+status);
+			console.log("headers"+headers);
+			console.log("config"+config);
+			 $scope.message_error_update={ text: data};
+	       }
+		);	
+				 
+	  
+	}
+	
+	
+	
 });
 
 app.controller('formsController', function ($scope,$http) {

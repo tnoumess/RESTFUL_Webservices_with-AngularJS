@@ -17,6 +17,7 @@ import application.model.Student;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
@@ -69,7 +70,7 @@ public class RestService {
 	
 	
 	/**
-	 * This method is used to save student information in the database.
+	 * This method is used to save student information.
 	 * 
 	 * @param studentId
 	 * @param name
@@ -141,6 +142,78 @@ public class RestService {
 		}
 		System.out.println("cannot save");
 		//throw new ConflictException(uriInfo.getBaseUriBuilder().path("/student/{studentId}").build(studentId));
+		return BadRequestException.toResponse(errors);
+	}
+	/**
+	 * This method is used to update student information.
+	 * 
+	 * @param studentId
+	 * @param name
+	 * @param major
+	 * @param country
+	 * @param uriInfo
+	 * @return  It returns 3 possible solutions
+	 * 
+	 * Processes Form data from HTML
+	 * Returns JSON data
+	 * 
+	 *         Code  200 if the operation is successful
+	 *         Code  400 if the Student Id does not exist already
+	 *         Code  400 if the data sent to the server are invalid 
+	 */
+	@Path("students")
+	@PUT
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Object updateStudent_Appform(@FormParam("studentId") String studentId, @FormParam("name") String name, @FormParam("major")String major,@FormParam("country")String country,@Context UriInfo uriInfo){
+		Student s=new Student(studentId, name, major, country);
+		/*
+		 *Server side validation. If an attacker circumvents the client side validation,
+		 *the server will detect it and reject the data by throwing Code400 
+		 * 
+		 * This same Regex pattern utilized on the client side.
+		 */
+		 String expr_id="^([G]{1})([0-9]{6})$";
+		 String expr_name="^([a-zA-Z]{2,20})$";
+		 String expr_major="^([a-zA-Z]{3})$";
+		 String expr_country="^([A-Z]{2,4})$";
+		 List<String> errors=new ArrayList<String>();
+		 CharSequence inputStr1 = studentId.trim();
+		 CharSequence inputStr2 = name.trim();
+		 CharSequence inputStr3 = major.trim();
+		 CharSequence inputStr4 =country.trim();
+		 Pattern pattern1 = Pattern.compile(expr_id,Pattern.CASE_INSENSITIVE);
+		 Matcher matcher1 = pattern1.matcher(inputStr1);
+		 Pattern pattern2 = Pattern.compile(expr_name,Pattern.CASE_INSENSITIVE);
+		 Matcher matcher2 = pattern2.matcher(inputStr2);
+		 Pattern pattern3 = Pattern.compile(expr_major,Pattern.CASE_INSENSITIVE);
+		 Matcher matcher3 = pattern3.matcher(inputStr3);
+		 Pattern pattern4 = Pattern.compile(expr_country,Pattern.CASE_INSENSITIVE);
+		 Matcher matcher4 = pattern4.matcher(inputStr4);
+
+			System.out.println(studentId+matcher1.matches());
+			System.out.println(name+matcher2.matches());
+			System.out.println(major+matcher3.matches());
+			System.out.println(country+matcher4.matches());
+		 if(!matcher1.matches()) errors.add("the Student Id format is invalid");
+		 if(!matcher2.matches()) errors.add("the Student Name format is invalid");
+		 if(!matcher3.matches()) errors.add("the Student Major format is invalid");
+		 if(!matcher4.matches()) errors.add("the Student Country format is invalid");
+		 if(matcher1.matches()&&matcher2.matches()&&matcher3.matches()&&matcher4.matches())
+		 {
+		 
+		 if(SetupDB.IdInuse(studentId)){
+		SetupDB.updateForm(s);
+		System.out.println(s);
+		ListStudents =Json_Parser.Object_to_Json(SetupDB.List_students());
+		return Json_Parser.Object_to_Json(SetupDB.Retrieve(studentId));
+		
+		}else{
+			errors.add("This Student Id does not exist!");
+			return BadRequestException.toResponse(errors);
+		}
+		}
+		System.out.println("cannot save");
 		return BadRequestException.toResponse(errors);
 	}
 	/**

@@ -62,6 +62,36 @@ public class SetupDB {
 		 
 		 		 
 	 }
+	/**
+	 * @param student
+	 * @return true if the student has been registered
+	 *         false if and error has occurred
+	 */
+	public static  boolean updateForm(Student s){
+		 try {
+			 
+			System.out.println("inserting info");	
+			Session session=sessionfactory.openSession();	
+			Transaction transaction=session.beginTransaction();
+			Student sb=new Student(s);
+			System.out.println("before insertion");
+			 Student q = (Student)session.get(Student.class, s.getStudentId());
+			 q.setName(s.getName());
+			 q.setMajor(s.getMajor());
+			 q.setCountry(s.getcountry());
+			 session.update(q);
+			transaction.commit();
+			System.out.println("Information successfully updated!!!");
+			return true;
+			
+		} catch (Exception e) {
+			System.out.println("error during insertion");
+			// TODO: handle exception
+			return false;
+		}
+		 
+		 		 
+	 }
 	 /**
 	 * @param Id
 	 * @return true if the student with id= Id is in the database

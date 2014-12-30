@@ -95,7 +95,7 @@ List of Students<br>
 <div>
 <ul>
 <table class="div_spec">
- <tr class="success"><td>Student  Id </td><td>Name</td><td>Major</td><td>Country</td></tr>
+ <tr class="success"><td>Student Id </td><td>Name</td><td>Major</td><td>Country</td></tr>
 <div>
 <tr ng-repeat="x in students" class="fieldset_spec"><td>{{x.studentId}}</td><td>{{x.name}}</td><td>{{x.major}}</td><td>{{x.country}}</td></tr>
 </div>

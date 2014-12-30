@@ -182,7 +182,7 @@ public class RestService {
 		 CharSequence inputStr2 = name.trim();
 		 CharSequence inputStr3 = major.trim();
 		 CharSequence inputStr4 =country.trim();
-		 Pattern pattern1 = Pattern.compile( expr_id,Pattern.CASE_INSENSITIVE);
+		 Pattern pattern1 = Pattern.compile(expr_id,Pattern.CASE_INSENSITIVE);
 		 Matcher matcher1 = pattern1.matcher(inputStr1);
 		 Pattern pattern2 = Pattern.compile(expr_name,Pattern.CASE_INSENSITIVE);
 		 Matcher matcher2 = pattern2.matcher(inputStr2);

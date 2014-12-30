@@ -274,7 +274,7 @@ app.controller('formsController', function ($scope,$http) {
 		console.log($scope.student);
 		var url="/RestfulStruts/rest/students";
 		var config={
-				headers:{'Content-Type': 'application/x-www-form-urlencoded'}				
+				headers:{'Content-Type': 'application/x-www-form-urlencoded' }				
 		};
 		
 		var data='studentId='+$scope.student.Id+'&name='+$scope.student.Name+'&major= '+$scope.student.Major+'&country= '+$scope.student.Country;

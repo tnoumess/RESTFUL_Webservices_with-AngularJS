@@ -73,7 +73,7 @@ public class SetupDB {
 			System.out.println("inserting info");	
 			Session session=sessionfactory.openSession();	
 			Transaction transaction=session.beginTransaction();
-			Student sb=new Student(s);
+			Student sb=new Student(s);  
 			System.out.println("before insertion");
 			 Student q = (Student)session.get(Student.class, s.getStudentId());
 			 q.setName(s.getName());

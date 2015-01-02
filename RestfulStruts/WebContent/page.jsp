@@ -92,12 +92,15 @@ StudentId:{{ x.studentId }}
 </div>
 <div ng-show='formlistState.show'>
 List of Students<br>  
+<div ng-bind="list">
+{{students}}
+</div>
 <div>
 <ul>
 <table class="div_spec">
  <tr class="success"><td>Student Id </td><td>Name</td><td>Major</td><td>Country</td></tr>
 <div>
-<tr ng-repeat="x in students" class="fieldset_spec"><td>{{x.studentId}}</td><td>{{x.name}}</td><td>{{x.major}}</td><td>{{x.country}}</td></tr>
+<tr ng-repeat="x in studentss" class="fieldset_spec"><td>{{x.studentId}}</td><td>{{x.name}}</td><td>{{x.major}}</td><td>{{x.country}}</td></tr>
 </div>
 </table>
 </ul>

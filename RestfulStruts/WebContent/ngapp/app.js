@@ -13,25 +13,33 @@ app.controller('GetController', function ($scope, $http) {
        });
 });
 
-app.factory('FetchdataController',function(){ 
-	scope.students=studentss;
-	
-	var studentss=function ($scope, $http) {
-	  
+/*
+ * Data fetch service.
+ * 
+ * fetches data from server.
+ */
+
+app.factory('FetchdataService',function($http){ 
+				 
+	return {
+	     getStudents: function() {
+	 
+		 
     var url="/RestfulStruts/rest";
-       
+    
    
-       $http.get(url).success(function(response){alert(response);
-      // $scope.studentss=response;
-       alert(response);
-       return response;
+    return  $http.get(url).success(function(response){
+    
+       return response.data;
       
        }).error(function(data, status, headers, config) {
        	 alert("error");
        	 return "null";
        });
+       
 }
-});
+	}
+	  });
 
 app.controller('greetingController', function ($scope) {
   $scope.greeting = { text: 'Hello' };
@@ -154,7 +162,17 @@ app.controller('CartController',function($scope){
 	
 });
 
-app.controller('SmcController',function($scope,$http){
+app.controller('SmcController',function($scope,$http,FetchdataService){
+		
+	/*FetchdataService.getStudents().then(function(data) {
+	       //this will execute when the 
+	       //AJAX call completes.
+		$scope.students=data;
+		alert(data);
+	   });*/
+	
+		
+		
 		
 	    $scope.addstudentform=function(){
 		console.log('just switch');
@@ -179,16 +197,13 @@ app.controller('SmcController',function($scope,$http){
     	console.log('inside student update');
     	$scope.students=$scope.initial;// clear the object first
     
-        $http.get(url).success(function(response, status, headers){
-        
-        $scope.students=response;	
-        console.log(headers);
-        
-        }).error(function(data, status, headers, config) {
-        	console.log(status);
-        	console.log(data);
-            console.log(headers);
-        });
+    	FetchdataService.getStudents().success(function(data) {
+ 	       //this will execute when the 
+ 	       //AJAX call completes.
+ 	       $scope.students = data;
+ 	       console.log(data);
+ 	       
+ 	   });
         $scope.updateformdisplay=function(){
         	console.log('in updateformdisplay');
         	$scope.formState = { show: false };		
@@ -207,20 +222,16 @@ app.controller('SmcController',function($scope,$http){
     }
     $scope.liststudents=function(){//window.location.reload();
     	//fetch the most recent data
-    	var url="/RestfulStruts/rest";
-    	console.log('before init'+$scope.students);
-    	$scope.students=$scope.initial;// clear the object first
-    	console.log('after init'+$scope.students);
-        $http.get(url).success(function(response, status, headers){
-        console.log(status);
-        $scope.students=response;	
-        console.log(headers);
-        
-        }).error(function(data, status, headers, config) {
-        	console.log(status);
-        	console.log(data);
-            console.log(headers);
-        });
+    	alert("in list");    	
+    	console.log("by data");    	
+    	FetchdataService.getStudents().success(function(data) {
+    	       //this will execute when the 
+    	       //AJAX call completes.
+    	       $scope.studentss = data;
+    	       console.log(data);
+    	       
+    	   });
+
         //hide other views
     	$scope.formState = { show: false };
 		$scope.formremoveState = { show: false };

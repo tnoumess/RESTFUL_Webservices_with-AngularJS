@@ -1,9 +1,9 @@
-
 <html ng-app="myApp">
 </head>
 <link rel="stylesheet" type="text/css" href="css/app.css"/>
 <script src="lib/angular-min.js"> </script>
 <script src="ngapp/app.js"> </script>
+<script  src="ngapp/angular-route.js">  </script>
 </head>
 <body >
 <div ng-controller='greetingController'>
@@ -55,6 +55,9 @@ ng-class='{selected: $index==selectedRow}'>
 <div>Discount: {{bill.discount | currency}}</div>
 <div>Subtotal: {{subtotal() | currency}}</div>
 </div>
+<div  ng-controller="HomeController">
+  <h1>{{pageHeading | titleCase}}</h1>
+</div>
 <div ng-controller="SmcController" > <span ng-click='addstudentform()'> <a ng-href="#" >Add Student</a></span>||<span ng-click='removestudentform()'><a href="#" >Remove Student</a></span>||<span ng-click='updatestudentform()'><a href="#" >Update Student</a></span>||<span ng-click='liststudents()'><a href="#" >List Students</a></span>
 <div ng-show='formState.show' ng-controller="formsController">
 <form name="studentform" ng-submit="sendform()">
@@ -89,7 +92,6 @@ Country: <select name="country" ng-model="student.Country" required>
 </div>
 </fieldset>
 </form>
-
 </div>
 <div ng-show='formremoveState.show'>
 remove
@@ -111,5 +113,3 @@ Name:{{x.name }}
 </div>
 </body>
 </html>
-
-    

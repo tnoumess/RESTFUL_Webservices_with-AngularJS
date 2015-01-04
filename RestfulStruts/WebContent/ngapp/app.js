@@ -1,45 +1,16 @@
-var app = angular.module('myApp', []);
+var app = angular.module('myApp', ['ngRoute']);
 app.controller('GetController', function ($scope, $http) {
 	  
-    var url="/RestfulStruts/rest";
-       
-   
-       $http.get(url).success(function(response){alert("in");
+    var url="/RestfulStruts/rest";        
+       $http.get(url).success(function(response){
        $scope.students=response;	
-       console.log("in controller:"+$scope.students);
-       	
+       console.log("in controller:"+$scope.students);       	
        }).error(function(data, status, headers, config) {
        	 alert("error");
        });
 });
 
-/*
- * Data fetch service.
- * 
- * fetches data from server.
- */
-
-app.factory('FetchdataService',function($http){ 
-				 
-	return {
-	     getStudents: function() {
-	 
-		 
-    var url="/RestfulStruts/rest";
-    
-   
-    return  $http.get(url).success(function(response){
-    
-       return response.data;
-      
-       }).error(function(data, status, headers, config) {
-       	 alert("error");
-       	 return "null";
-       });
-       
-}
-	}
-	  });
+/***************************************************************************/
 
 app.controller('greetingController', function ($scope) {
   $scope.greeting = { text: 'Hello' };
@@ -131,6 +102,7 @@ app.controller('PictureController', function ($scope) {
 	}
 	  
 	});
+
 app.controller('CartController',function($scope){
 	
 	$scope.bill = {};
@@ -162,29 +134,62 @@ app.controller('CartController',function($scope){
 	
 });
 
+/***********************************************************************
+                                                                       *
+Implementation of Controllers,Filters,Services,routers                 *
+************************************************************************
+
+/*--------------------------
+ * @Name Data-fetch Service
+ * 
+ * fetches data from server.
+ * -------------------------
+ */
+/* Begin*/
+app.factory('FetchdataService',function($http){ 
+				 
+	return {
+	     getStudents: function() {
+	 
+		 
+    var url="/RestfulStruts/rest";
+    
+   
+    return  $http.get(url).success(function(response){
+    
+       return response.data;
+      
+       }).error(function(data, status, headers, config) {
+       	 alert("error");
+       	 return "null";
+       });
+       
+}
+	}
+	  });
+/*End*/
+
+/************************************************************************
+/*--------------------------
+ * @Name Student Management Console controller.
+ * 
+ * @comment:
+ * -------------------------
+ */
+/* Begin*/
 app.controller('SmcController',function($scope,$http,FetchdataService){
 		
-	/*FetchdataService.getStudents().then(function(data) {
-	       //this will execute when the 
-	       //AJAX call completes.
-		$scope.students=data;
-		alert(data);
-	   });*/
-	
-		
-		
-		
+			
 	    $scope.addstudentform=function(){
-		console.log('just switch');
+		console.log('in add');
 		$scope.formremoveState = { show: false };
 		$scope.formupdateState = { show: false};
 		$scope.formlistState = { show: false };
 		$scope.formState = { show: true };
 		$scope.formupdatedisplayState={show:false};
-			
-	}
-    $scope.removestudentform=function(){
-    	
+	   }
+        $scope.removestudentform=function(){  
+        	console.log('in remove');
     	$scope.formState = { show: false };		
 		$scope.formupdateState = { show:false };
 		$scope.formlistState = { show: false };
@@ -194,7 +199,7 @@ app.controller('SmcController',function($scope,$http,FetchdataService){
 	}
     $scope.updatestudentform=function(){
     	var url="/RestfulStruts/rest";
-    	console.log('inside student update');
+    	console.log('inside update');
     	$scope.students=$scope.initial;// clear the object first
     
     	FetchdataService.getStudents().success(function(data) {
@@ -220,9 +225,9 @@ app.controller('SmcController',function($scope,$http,FetchdataService){
 		$scope.formupdatedisplayState={show:true};
 		
     }
-    $scope.liststudents=function(){//window.location.reload();
+    $scope.liststudents=function(){
     	//fetch the most recent data
-    	alert("in list");    	
+    	   	
     	console.log("by data");    	
     	FetchdataService.getStudents().success(function(data) {
     	       //this will execute when the 
@@ -243,7 +248,17 @@ app.controller('SmcController',function($scope,$http,FetchdataService){
   
     
 });
+/*End*/
 
+/******************************************************************************/
+/************************************************************************
+/*--------------------------
+ * @Name Update student controller.
+ * 
+ * @comment:
+ * -------------------------
+ */
+/*Begin*/
 app.controller('updateController', function ($scope,$http) {
 	console.log('just added1');
 	$scope.sendupdateform=function(){
@@ -269,14 +284,20 @@ app.controller('updateController', function ($scope,$http) {
 			 $scope.message_error_update={ text: data};
 	       }
 		);	
-				 
-	  
+			  
 	}
 	
-	
-	
 });
+/*End*/
 
+/************************************************************************
+/*--------------------------
+ * @Name Add student controller.
+ * 
+ * @comment:
+ * -------------------------
+ */
+/*Begin*/
 app.controller('formsController', function ($scope,$http) {
 	console.log('just added1');
 		$scope.sendform = function() {
@@ -286,8 +307,7 @@ app.controller('formsController', function ($scope,$http) {
 		var url="/RestfulStruts/rest/students";
 		var config={
 				headers:{'Content-Type': 'application/x-www-form-urlencoded' }				
-		};
-		
+		};		
 		var data='studentId='+$scope.student.Id+'&name='+$scope.student.Name+'&major= '+$scope.student.Major+'&country= '+$scope.student.Country;
 		$http.post(url,data,config).success(function(response){
 		    console.log('data sent');
@@ -305,4 +325,74 @@ app.controller('formsController', function ($scope,$http) {
 				 
 	  
 	};});
+/************************************************************************
+/*--------------------------
+ * @Name List students Controller.
+ * 
+ * @comment:
+ * -------------------------
+ */
+/*Begin*/
+app.controller('listcontroller', function ($scope,FetchdataService) {
+	FetchdataService.getStudents().success(function(data) {
+	       //this will execute when the 
+	       //AJAX call completes.
+	       $scope.studentss = data;
+	       console.log(data);
+	       
+	   });
+	});
+
+/*End*/
+
+/************************************************************************
+/*--------------------------
+ * @Name Filter template.
+ * 
+ * @comment:
+ * -------------------------
+ */
+/*Begin*/
+function HomeController($scope) {
+	  $scope.pageHeading = 'behold the majesty of your page title';
+	}
+
+app.filter('titleCase', function() {
+	  var titleCaseFilter = function(input) {
+	    var words = input.split(' ');
+	    for (var i = 0; i < words.length; i++) {
+	      words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+	    }
+	    return words.join(' ');
+	  };
+	  return titleCaseFilter;
+	});
+/*End*/
+
+/************************************************************************
+/*--------------------------
+ * @Name Restful router.
+ * 
+ * @comment:
+ * -------------------------
+ */
+/*Begin*/
+app.config(['$routeProvider',
+                  function($routeProvider) {console.log("here");
+                    $routeProvider.
+                      when('/list', {
+                        templateUrl: 'view1/listStudents.jsp',
+                        controller: 'listcontroller'
+                    }).when('/add', {
+                        templateUrl: 'view1/addform.jsp',
+                        controller: 'formsController'
+                    }).when('/update', {
+                        templateUrl: 'view1/updateform.jsp',
+                        controller: 'updateController'
+                    }).
+                      otherwise({
+                        redirectTo: 'page.jsp'
+                      });
+                             }]);
+/*End*/
 

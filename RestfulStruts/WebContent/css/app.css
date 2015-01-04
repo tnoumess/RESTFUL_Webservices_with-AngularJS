@@ -26,6 +26,7 @@ a{
 	text-decoration-line:none;
 	text-decoration-color:red;
 }
+
 .div_spec{
 	border: 2px solid #a1a1a1;
     padding: 10px 40px; 
@@ -68,3 +69,8 @@ a{
             position:relative;
             top:1px;
         }
+  
+  .fieldset_spec:hover{
+  background-color:#fae4bd;
+  
+  }

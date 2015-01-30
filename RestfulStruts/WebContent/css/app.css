@@ -41,11 +41,24 @@ a{
 	
 }*/
 
-.text_spec:hover{
+.text_spec{
 	color:yellow;    
 	
 }
+.text_spec2{
+	color:yellow;    
+	
+}
+.text_spec2:hover{
+	 background-color:#fae4bd; 
+	 color:black;   
+	
+}
 .fieldset_spec{
+ background: silver;	
+	
+}
+.fieldset_spec2{
  background: silver;	
 	
 }
@@ -70,7 +83,7 @@ a{
             top:1px;
         }
   
-  .fieldset_spec:hover{
+  .fieldset_spec2:hover{
   background-color:#fae4bd;
   
   }

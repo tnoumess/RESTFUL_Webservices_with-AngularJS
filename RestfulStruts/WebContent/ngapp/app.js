@@ -6,7 +6,7 @@ app.controller('GetController', function ($scope, $http) {
        $scope.students=response;	
        console.log("in controller:"+$scope.students);       	
        }).error(function(data, status, headers, config) {
-       	 alert("error");
+       	 alert("errorr");
        });
 });
 
@@ -160,7 +160,7 @@ app.factory('FetchdataService',function($http){
        return response.data;
       
        }).error(function(data, status, headers, config) {
-       	 alert("error");
+       	 alert("error in fetch");
        	 return "null";
        });
        
@@ -187,6 +187,7 @@ app.controller('SmcController',function($scope,$http,FetchdataService){
 		$scope.formlistState = { show: false };
 		$scope.formState = { show: true };
 		$scope.formupdatedisplayState={show:false};
+		console.log('in add2');
 	   }
         $scope.removestudentform=function(){  
         	console.log('in remove');
@@ -228,7 +229,7 @@ app.controller('SmcController',function($scope,$http,FetchdataService){
     $scope.liststudents=function(){
     	//fetch the most recent data
     	   	
-    	console.log("by data");    	
+    	console.log("by dataa");    	
     	FetchdataService.getStudents().success(function(data) {
     	       //this will execute when the 
     	       //AJAX call completes.
@@ -276,7 +277,7 @@ app.controller('updateController', function ($scope,$http) {
 		    console.log(response);
 		    $scope.students=null;
 		    $scope.message_success_update={ text: 'The student was successfully updated'};
-		}).error(function(data, status, headers, config) {
+		}).error(function(data, status, headers, config) {alert('erorrrrr');
 			console.log("data:"+data);
 			console.log("status:"+status);
 			console.log("headers"+headers);
@@ -337,8 +338,21 @@ app.controller('listcontroller', function ($scope,FetchdataService) {
 	FetchdataService.getStudents().success(function(data) {
 	       //this will execute when the 
 	       //AJAX call completes.
-	       $scope.studentss = data;
+	       $scope.students = data;
+	     /*  $scope.student=[
+	            	       {name:'John', age:25, gender:'boy'},
+	            	       {name:'Jessie', age:30, gender:'girl'},
+	            	       {name:'Johanna', age:28, gender:'girl'},
+	            	       {name:'Joy', age:15, gender:'girl'},
+	            	       {name:'Mary', age:28, gender:'girl'},
+	            	       {name:'Peter', age:95, gender:'boy'},
+	            	       {name:'Sebastian', age:50, gender:'boy'},
+	            	       {name:'Erika', age:27, gender:'girl'},
+	            	       {name:'Patrick', age:40, gender:'boy'},
+	            	       {name:'Samantha', age:60, gender:'girl'}
+	            	     ];*/
 	       console.log(data);
+	       console.log('innn');
 	       
 	   });
 	});
@@ -381,7 +395,7 @@ app.config(['$routeProvider',
                   function($routeProvider) {console.log("here");
                     $routeProvider.
                       when('/list', {
-                        templateUrl: 'view1/listStudents.jsp',
+                        templateUrl: 'view1/liststudents.jsp',
                         controller: 'listcontroller'
                     }).when('/add', {
                         templateUrl: 'view1/addform.jsp',

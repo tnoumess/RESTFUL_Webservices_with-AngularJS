@@ -98,6 +98,7 @@ public class RestService {
 		 * 
 		 * This same Regex pattern utilized on the client side.
 		 */
+		System.out.println("vkvk");
 		 String expr_id="^([G]{1})([0-9]{6})$";
 		 String expr_name="^([a-zA-Z]{2,20})$";
 		 String expr_major="^([a-zA-Z]{3})$";

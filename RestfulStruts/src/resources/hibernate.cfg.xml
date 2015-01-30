@@ -15,10 +15,9 @@
       jdbc:mysql://localhost:3306/Restful
    </property>
    <property name="hibernate.connection.username">
-      edson
+      root
    </property>
    <property name="hibernate.connection.password">
-     edson999
    </property>
 		<property name="hibernate.hbm2ddl.auto" > 
 		update

@@ -9,20 +9,30 @@
 </head> 
 <body>
 
-<div ng-controller="SmcController" > <span ng-click='addstudentform()'> <a ng-href="#/add" >Add Student</a></span>||<span ng-click='removestudentform()'><a href="#" >Remove Student</a></span>||<span ng-click='updatestudentform()'><a href="#/update" >Update Student</a></span>||<span ng-click='liststudents()'><a href="#/list" >List Students</a></span>
+<div ng-controller="SmcController" >
+
+<span ng-click='addstudentform()'> <a ng-href="#/add" >Add Student</a></span>||<span ng-click='removestudentform()'><a href="#" >Remove Student</a></span>||<span ng-click='updatestudentform()'><a href="#/update" >Update Student</a></span>||<span ng-click='liststudents()'><a href="#/list" >List Students</a></span>
  
 <div ng-show='formState.show' ng-controller="formsController"> 
 
-<noscript> <div class='error'>please activate your JavaScript</div></noscript>
-<div ng-view></div> </div>
+<!-- <noscript> <div class='error'>please activate your JavaScript</div></noscript> -->
+<div ng-view></div> 
+
+</div>
 
 <div ng-show='formremoveState.show'> remove  </div>
 
 <div ng-show='formupdateState.show'  ng-controller="updateController">
+
 <div ng-show='formupdatedisplayState.show'> <div ng-view></div></div>
+
 </div>
 
-<div ng-show='formlistState.show'> <div ng-view></div> </div>
+<div ng-show='formlistState.show'> 
+
+<div ng-view></div>
+
+ </div>
 
 </div>
 

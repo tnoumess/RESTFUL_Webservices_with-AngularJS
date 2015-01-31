@@ -1,6 +1,7 @@
 
-<form name="studentupdateform" ng-submit="sendupdateform()">
-<fieldset class="fieldset_spec"><legend><strong>UPDATE FORM</strong></legend>
+
+<form name="studentupdateform" ng-submit="sendupdateform()" width="50">
+<fieldset class="fieldset_spec2"><legend><strong>UPDATE FORM</strong></legend>
 <div class="success"> {{message_success_update.text}}</div><div class="error"> {{message_error_update.text}}</div>
 <div class="div_spec" ng-class="getCssClasses(studentupdateform.studentId)">
 StudentId:<input name="studentId" type="text" title="Student Id" placeholder="G00760357" ng-model="Student.Id" ng-pattern="/^[G]{1}[0-9]{6}$/" required>

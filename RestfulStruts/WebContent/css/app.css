@@ -59,7 +59,7 @@ a{
 	
 }
 .fieldset_spec2{
- background: silver;	
+ background: #add8e6;	
 	
 }
  .submit_b {
@@ -83,7 +83,7 @@ a{
             top:1px;
         }
   
-  .fieldset_spec2:hover{
+  /*.fieldset_spec2:hover{
   background-color:#fae4bd;
   
-  }
+  }*/

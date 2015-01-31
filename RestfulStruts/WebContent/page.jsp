@@ -1,3 +1,4 @@
+
 <html ng-app="myApp">
 </head>
 <link rel="stylesheet" type="text/css" href="css/app.css"/>
@@ -11,11 +12,11 @@
 
 <div ng-controller="SmcController" >
 
-<span ng-click='addstudentform()'> <a ng-href="#/add" >Add Student</a></span>||<span ng-click='removestudentform()'><a href="#" >Remove Student</a></span>||<span ng-click='updatestudentform()'><a href="#/update" >Update Student</a></span>||<span ng-click='liststudents()'><a href="#/list" >List Students</a></span>
+<span ng-click='addstudentform()'> <a href="#/add" >Add Student</a></span>||<span ng-click='removestudentform()'><a href="#" >Remove Student</a></span>||<span ng-click='updatestudentform()'><a href="#/update" >Update Student</a></span>||<span ng-click='liststudents()'><a href="#/list" >List Students</a></span>
  
 <div ng-show='formState.show' ng-controller="formsController"> 
 
-<!-- <noscript> <div class='error'>please activate your JavaScript</div></noscript> -->
+ <noscript> <div class='error'>please activate your JavaScript!</div></noscript> 
 <div ng-view></div> 
 
 </div>

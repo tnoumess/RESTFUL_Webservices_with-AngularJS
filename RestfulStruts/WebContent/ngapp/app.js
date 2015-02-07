@@ -326,6 +326,42 @@ app.controller('formsController', function ($scope,$http) {
 				 
 	  
 	};});
+
+/************************************************************************
+/*--------------------------
+ * @Name Remove student controller.
+ * 
+ * @comment:
+ * -------------------------
+ */
+/*Begin*/
+app.controller('removeController', function ($scope,FetchdataService,$http) {
+	FetchdataService.getStudents().success(function(data) {
+	       //this will execute when the 
+	       //AJAX call completes.
+	       $scope.students = data;}
+	)
+	       $scope.remove = function() {$scope.message_delete={ text: null};
+	       console.log("id="+$scope.stud.Id);
+	      var url='/RestfulStruts/rest/students/'+$scope.stud.Id;
+	      var config={
+					headers:{'Content-Type': 'application/x-www-form-urlencoded' }				
+			};		
+			var data=$scope.stud.Id;
+			$http['delete'](url,config).success(function(response){
+				$scope.message_delete={ text:'sucessfully deleted'};
+				 //$scope.message_success={ text: 'The student was saved'};
+				 $scope.students=null;
+				FetchdataService.getStudents().success(function(data) {$scope.students = data;})
+				
+			}).error(function(data, status, headers, config) {
+				
+		       }
+			);
+	       
+	       }
+	       	     
+  });
 /************************************************************************
 /*--------------------------
  * @Name List students Controller.
@@ -403,6 +439,9 @@ app.config(['$routeProvider',
                     }).when('/update', {
                         templateUrl: 'view1/updateform.jsp',
                         controller: 'updateController'
+                    }).when('/remove', {
+                        templateUrl: 'view1/removeform.jsp',
+                        controller: 'removeController'
                     }).
                       otherwise({
                         redirectTo: 'page.jsp'

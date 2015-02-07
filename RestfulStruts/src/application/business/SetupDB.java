@@ -92,6 +92,35 @@ public class SetupDB {
 		 
 		 		 
 	 }
+	
+	/**
+	 * @param student
+	 * @return true if the student has been registered
+	 *         false if and error has occurred
+	 */
+	public static  boolean deleteForm(String s){
+		 try {
+			 
+			System.out.println("deleting info");	
+			Session session=sessionfactory.openSession();	
+			Transaction transaction=session.beginTransaction();
+			Query query = session.createQuery("delete Student where studentId = :id");
+			query.setParameter("id", s);
+			 
+			int result = query.executeUpdate(); 
+			
+			transaction.commit();
+			System.out.println("Information successfully deleted!!!");
+			return true;
+			
+		} catch (Exception e) {
+			System.out.println("error during deletion");
+			// TODO: handle exception
+			return false;
+		}
+		 
+		 		 
+	 }
 	 /**
 	 * @param Id
 	 * @return true if the student with id= Id is in the database

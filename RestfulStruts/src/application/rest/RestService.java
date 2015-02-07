@@ -14,11 +14,13 @@ import application.Utility.Json_Parser;
 import application.business.SetupDB;
 import application.model.Student;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.CacheControl;
@@ -232,8 +234,67 @@ public class RestService {
 		Student s=new Student(studentId, name, major, country);
 		System.out.println("Json save");
 		System.out.println(studentId);
+				
+	}
+	
+	/**
+	 * This method is used to update student information.
+	 * 
+	 * @param studentId
+	 * @param name
+	 * @param major
+	 * @param country
+	 * @param uriInfo
+	 * @return  It returns 3 possible solutions
+	 * 
+	 * Processes Form data from HTML
+	 * Returns JSON data
+	 * 
+	 *         Code  200 if the operation is successful
+	 *         Code  400 if the Student Id does not exist already
+	 *         Code  400 if the data sent to the server are invalid 
+	 */
+	@Path("students/{Id}")
+	@DELETE
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Object deleteStudent_Appform(@PathParam("Id") String studentId){
+		//Student s=new Student(studentId, name, major, country);
+		/*
+		 *Server side validation. If an attacker circumvents the client side validation,
+		 *the server will detect it and reject the data by throwing Code400 
+		 * 
+		 * This same Regex pattern utilized on the client side.
+		 */
+		 String expr_id="^([G]{1})([0-9]{6})$";
+		 
+		 List<String> errors=new ArrayList<String>();
+		 CharSequence inputStr1 = studentId.trim();
+		 
+		 Pattern pattern1 = Pattern.compile(expr_id,Pattern.CASE_INSENSITIVE);
+		 Matcher matcher1 = pattern1.matcher(inputStr1);
 		
+		 
+			System.out.println(studentId+matcher1.matches());
+			
+		 if(!matcher1.matches()) errors.add("The Student Id format is invalid");
+		 
+		 if(matcher1.matches())
+		 {
+		 
+		 if(SetupDB.IdInuse(studentId)){
+		SetupDB.deleteForm(studentId);		
+		ListStudents =Json_Parser.Object_to_Json(SetupDB.List_students());
+		return Json_Parser.Object_to_Json(SetupDB.Retrieve(studentId));
 		
+		}else{
+			//errors.add("This Student Id does not exist!");
+			return Json_Parser.Object_to_Json(SetupDB.Retrieve(studentId));
+			
+		}
+		}
+		System.out.println("cannot save");
+		return ListStudents;
 	}
 	
 }

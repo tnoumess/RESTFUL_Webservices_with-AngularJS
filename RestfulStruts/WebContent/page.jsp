@@ -12,7 +12,7 @@
 
 <div ng-controller="SmcController" >
 
-<span ng-click='addstudentform()'> <a href="#/add" >Add Student</a></span>||<span ng-click='removestudentform()'><a href="#" >Remove Student</a></span>||<span ng-click='updatestudentform()'><a href="#/update" >Update Student</a></span>||<span ng-click='liststudents()'><a href="#/list" >List Students</a></span>
+<span ng-click='addstudentform()'> <a href="#/add" >Add Student</a></span>||<span ng-click='removestudentform()'><a href="#/remove" >Remove Student</a></span>||<span ng-click='updatestudentform()'><a href="#/update" >Update Student</a></span>||<span ng-click='liststudents()'><a href="#/list" >List Students</a></span>
  
 <div ng-show='formState.show' ng-controller="formsController"> 
 
@@ -21,7 +21,10 @@
 
 </div>
 
-<div ng-show='formremoveState.show'> remove  </div>
+<div ng-show='formremoveState.show' ng-controller="removeController"> 
+
+<div ng-view></div>
+  </div>
 
 <div ng-show='formupdateState.show'  ng-controller="updateController">
 

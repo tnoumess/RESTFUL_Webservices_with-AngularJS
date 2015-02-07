@@ -47,7 +47,7 @@ a{
 }
 .text_spec2{
 	color:yellow;    
-	
+	 background-color:blue; 
 }
 .text_spec2:hover{
 	 background-color:#fae4bd; 

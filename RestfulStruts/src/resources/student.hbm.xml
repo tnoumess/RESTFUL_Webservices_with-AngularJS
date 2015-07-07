@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name="application.model.Student" table="student">
+      <meta attribute="class-description">
+         This class contains the student detail. 
+      </meta>
+      <id name="studentId" column="studentId" type="string">
+        </id>      
+      <property name="name" column="name" type="string"/>
+      <property name="major" column="major" type="string"/>  
+      <property name="country" column="country" type="string"/>    
+      
+   </class>
+</hibernate-mapping>

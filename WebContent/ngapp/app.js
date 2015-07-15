@@ -198,7 +198,7 @@ app.controller('SmcController',function($scope,$http,FetchdataService,$interval)
 		$scope.formupdatedisplayState={show:false};
 			
 	}
-    $scope.updatestudentform=function(){
+        $scope.updatestudentform=function(){
     	var url="/RestfulStruts/rest";
     	console.log('inside update');
     	$scope.students=$scope.initial;// clear the object first
@@ -210,7 +210,8 @@ app.controller('SmcController',function($scope,$http,FetchdataService,$interval)
  	       console.log(data);
  	       
  	   });
-        $scope.updateformdisplay=function(){
+       
+    	$scope.updateformdisplay=function(){
         	console.log('in updateformdisplay');
         	$scope.formState = { show: false };		
     		$scope.formupdateState = { show:false };
@@ -226,7 +227,7 @@ app.controller('SmcController',function($scope,$http,FetchdataService,$interval)
 		$scope.formupdatedisplayState={show:true};
 		
     }
-    $scope.liststudents=function(){
+       $scope.liststudents=function(){
     	//fetch the most recent data
     	   	
     	console.log("by dataa");    	
@@ -335,12 +336,14 @@ app.controller('formsController', function ($scope,$http) {
  * -------------------------
  */
 /*Begin*/
-app.controller('removeController', function ($scope,FetchdataService,$http) {
-	FetchdataService.getStudents().success(function(data) {
-	       //this will execute when the 
-	       //AJAX call completes.
-	       $scope.students = data;}
-	)
+app.controller('removeController', function ($scope,FetchdataService,$http,$interval) {
+	$interval(function(){FetchdataService.getStudents().success(function(data) {
+		 $scope.students=null;
+		 $scope.students = data;
+	       //console.log(data);
+	       console.log('inn');	       
+	   });
+	},10000);
 	       $scope.remove = function() {$scope.message_delete={ text: null};
 	       console.log("id="+$scope.stud.Id);
 	      var url='/RestfulStruts/rest/students/'+$scope.stud.Id;
@@ -371,13 +374,13 @@ app.controller('removeController', function ($scope,FetchdataService,$http) {
  */
 /*Begin*/
 app.controller('listcontroller', function ($scope,FetchdataService,$interval) {
-	$interval(function(){  FetchdataService.getStudents().success(function(data) {
-	       
-	       console.log(data);
-	       console.log('innn');
-	       
+	$interval(function(){FetchdataService.getStudents().success(function(data) {
+		 $scope.studentss=null;
+		 $scope.studentss = data;
+	       //console.log(data);
+	       console.log('inn');	       
 	   });
-	},5000);
+	},10000);
 	});
 
 /*End*/

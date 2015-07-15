@@ -32,11 +32,7 @@
 
 </div>
 
-<div ng-show='formlistState.show'> 
-
-<div ng-view></div>
-
- </div>
+<div ng-show='formlistState.show'> <div ng-view></div> </div>
 
 </div>
 

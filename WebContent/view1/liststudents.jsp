@@ -15,7 +15,7 @@ List of Students registered
     
   </tr>
   
-<tr ng-repeat="x in students" class="text_spec2">
+<tr ng-repeat="x in studentss" class="text_spec2">
     <td >{{$index + 1}}.{{ x.studentId }}</td>
     <td >{{x.name }}</td>
      <td >{{x.major }}</td>

@@ -1,5 +1,3 @@
-
-
 <form name="studentupdateform" ng-submit="sendupdateform()" width="50">
 <fieldset class="fieldset_spec2"><legend><strong>UPDATE FORM</strong></legend>
 <div class="success"> {{message_success_update.text}}</div><div class="error"> {{message_error_update.text}}</div>
